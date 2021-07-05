@@ -47,7 +47,10 @@ Start the server either by running:
 ```bash
 docker-compose build && docker-compose up -d
 ```
-
+or by running:
+```bash
+node app.js
+```
 ## Usage on the client
 
 ### Plain requests
