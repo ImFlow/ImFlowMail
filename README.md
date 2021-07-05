@@ -39,7 +39,9 @@ recipient | email of the recipient of the email
 
 In case that you don't have an idea how to create API-Keys, we added a tiny API-Creator Form on our generator page [here](https://imflow.me/imflowmail).
 
+### Edit the .env file
 
+Create a .env file by copiing the sample `cp env.sample .env` and edit it to fit to your SMTP server.
 ### Start the server
 Start the server either by running:
 ```bash
