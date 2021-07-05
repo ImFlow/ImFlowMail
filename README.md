@@ -13,11 +13,11 @@ Your one stop solution for:
 
 We recommened you to use our released Dockerfile to serve your node.js server application, but you can also start the application on webspace which is supporting node.js.
 
-Before starting your server you have to edit the <b>app.js</b> file in the root directory.
+Before starting your server you have to edit the __app.js__ file in the root directory.
 
 1. __Adding an api key__
 
-Open your __app.js__ file and search the following code: <br/>
+Open your __app.js__ file and search the following code:
 ```javascript
 const customers = [
     {
