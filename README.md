@@ -113,3 +113,10 @@ We provide a Wordpress plugin to use on your site. This works great with the [Si
 ## Todo
 
 - [ ] Connect to a DB
+
+
+## Bugreporting
+Please feel free to open an issue on the github page in order to report a bug.
+
+## Contributing
+Pull requests are very welcome :wink:
