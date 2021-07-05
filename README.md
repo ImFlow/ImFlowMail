@@ -9,15 +9,15 @@ Your one stop solution for:
 1. vue-based page
 2. static wordpress page (example view below)
 
-## Installation
+## Server Installation
 
-We recommened you to use our released Dockerfile to serve your node.js server application, but you can also start the application on webspace which is supporting node.js.
+We recommened you to use our Dockerfile to serve your node.js server application, but you can also start the application manually using plain old node.
 
-Before starting your server you have to edit the __app.js__ file in the root directory.
+Before starting your server you have to edit the __customers.js__ file in the root directory.
 
-1. __Adding an api key__
+### Adding an customers and api key
 
-Open your __app.js__ file and search the following code:
+Open your __customers.js__ file and search the following code:
 ```javascript
 const customers = [
     {
@@ -28,8 +28,87 @@ const customers = [
 ]
 ```
 
-Please change <code>name</code>, <code>apiKey</code> and <code>recipient</code> to your own values. In case that you don't have an idea how to create API-Keys, we added a tiny API-Creator Form on
-our repository-page. You can find the generator [here](https://imflow.me/imflowmail).
+Please change `name`, `apiKey` and `recipient` to your own values.
+The only value that identifies a customer is the API Key.
+The three values required are:
+Key | Value
+---- | ---- |
+Name | name of the customer
+apiKey | a random api key. Please use a sufficiently long random string. This is the only identifier for a customer.
+recipient | email of the recipient of the email
+
+In case that you don't have an idea how to create API-Keys, we added a tiny API-Creator Form on our generator page [here](https://imflow.me/imflowmail).
+
+
+### Start the server
+Start the server either by running:
+```bash
+docker-compose build && docker-compose up -d
+```
+
+## Usage on the client
+
+### Plain requests
+The most simple example for an API call to send an email is the following curl command:
+```bash
+curl --location --request POST 'https://your-server:4300' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "John Doe",
+    "email": "foo@bar.com",
+    "msg": "My super awesome test message",
+    "apiKey": "HJ6kk2rZ2fYmvw9wju",
+    "subject": "Hey nice to see you!"
+}'
+```
+### Vue / Javascript
+Please install axios using `npm i axios`.
+A very basic version of the contact form logic looks like this:
+```javascript
+import axios from "axios";
+export default {
+    setup() {
+      const submitForm = () => {
+      this.submitting = true;
+      this.error = false;
+      try {
+        await axios.post("https://YOURSERVER.com/", {
+          name: this.name,
+          email: this.email,
+          msg: this.msg,
+          apiKey: "HJ6kk2rZ2fYmvw9wju",
+          subject: "New contact form",
+        });
+        this.submitting = false;
+        this.isSubmitted = true;
+        await new Promise((resolve) => setTimeout(resolve, 2500));
+      } catch (e) {
+        this.submitting = false;
+        this.error = true;
+        console.error(e);
+      }
+    }
+    return {
+       submitForm,
+    }
+  }
+}
+```
+
+A full example can be found in the `vue/imflow_mail_example` directory
+### Wordpress
+
+
+We provide a Wordpress plugin to use on your site. This works great with the [Simply Static](https://de.wordpress.org/plugins/simply-static/#description) plugin. The wordpress plugin lives in the `wp` subdirectory.
+#### Installation
+1. Please change the URL of your server near the end of the `imflowMail.js` file in `wp/js` directory.
+2. Zip the entire `wp` directory and upload it to your wordpress site
+3. Insert the shortcode of the contact form on any site. The customer is identified by the API key you have set on the server.
+```php
+[contactform apikey="HJ6kk2rZ2fYmvw9wju" privacy_uri="https://example.com/privacy"]
+```
+4. __(Optional)__ Use the [Simply Static](https://de.wordpress.org/plugins/simply-static/#description) plugin to generate a static site from your wordpress site.
+
 
 ## Todo
 
