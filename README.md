@@ -23,12 +23,12 @@ const customers = [
     {
         name: "Imflow Doe",
         apiKey: "4ZEKvjApbYX6P7p6XY7B3",
-        recipient: "example@example.com",
+        recipients: [ "example@example.com", ]
     },
 ]
 ```
 
-Please change `name`, `apiKey` and `recipient` to your own values.
+Please change `name`, `apiKey` and `recipients` to your own values.
 The only value that identifies a customer is the API Key.
 The three values required are:
 Key | Value
