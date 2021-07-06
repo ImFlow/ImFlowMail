@@ -42,13 +42,24 @@ In case that you don't have an idea how to create API-Keys, we added a tiny API-
 ### Edit the .env file
 
 Create a .env file by copiing the sample `cp env.sample .env` and edit it to fit to your SMTP server.
-### Start the server
-Start the server either by running:
+## Running the server
+
+### Manual Docker
+You can run the service as a single docker container using the command:
 ```bash
-docker-compose build && docker-compose up -d
+docker run -d -v PATH_TO_YOUR_CUSTOMER.JS:/app/customer.js -v PATH_TO_YOUR_DOTENV:/app/.env imflow/imflow_mail:latest
 ```
-or by running:
+
+### Docker-compose
+We also provide a `docker-compose.yml` file, which uses [caddy](https://caddyserver.com/) for SSL termination. Please edit the `Caddyfile` to use your server name and then run the stack using
 ```bash
+docker-compose pull
+docker-compose up -d
+```
+### Running without Docker
+You can run the the server without Docker. Simple edit the `customer.js` and `.env` files and then start the server:
+```bash
+npm i
 node app.js
 ```
 ## Usage on the client
