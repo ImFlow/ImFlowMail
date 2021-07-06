@@ -78,17 +78,22 @@ const sendMail = (customer) => {
             pass: process.env.SMTP_PASS
         }
     })
-    transporter.sendMail({
-        from: customer.email,
-        to: customer.recipient,
-        subject: customer.subject,
-        text: `
-        Nachricht von ${customer.name}:
+    console.log(`before forEach`)
+    customer.recipient.forEach(email => {
+        console.log(`in forEach`)
+        transporter.sendMail({
+            from: customer.email,
+            to: email,
+            subject: customer.subject,
+            text: `
+            Nachricht von ${customer.name}:
+    
+            ${customer.msg}
+            `
+        })
+    });
 
 
-        ${customer.msg}
-        `
-    })
 }
 
 app.listen(3000, () => {
