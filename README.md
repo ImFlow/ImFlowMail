@@ -57,7 +57,7 @@ docker-compose pull
 docker-compose up -d
 ```
 ### Running without Docker
-You can run the the server without Docker. Simple edit the `customer.js` and `.env` files and then start the server:
+You can run the server without Docker. Simple edit the `customer.js` and `.env` files and then start the server:
 ```bash
 npm i
 node app.js
