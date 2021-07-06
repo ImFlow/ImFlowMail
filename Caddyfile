@@ -1,0 +1,5 @@
+your-server.de {
+    reverse_proxy {
+        to imflow_mail:4300
+    }
+}
