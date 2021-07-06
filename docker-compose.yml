@@ -2,8 +2,18 @@ version: "3"
 
 services:
     imflow_mail:
-        image: imflow_mail:latest
-        build: .
-        ports:
-            - 4300:3000
+        image: imflow/imflow_mail:latest
         restart: always
+        volumes:
+            - ./customers.js:/app/customers.js
+            - ./.env:/app/.env
+    caddy:
+        image: caddy:alpine
+        ports:
+            - 80:80
+            - 443:443
+        restart: always
+        volumes:
+            - ./caddy_data:/data
+            - ./caddy_config:/config
+            - ./Caddyfile:/etc/caddy/Caddyfile
